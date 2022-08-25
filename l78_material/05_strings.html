@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>JavaScript Examples</h1>
+
+<p id="header1">String concatenation (and types).</p>
+<br>
+<p id="container"></p>
+
+<script>
+var x = 5;
+var y = 6;
+var person = "Grischa";
+var concat = x + y + person;
+var escape1 = 'A "String"';
+var escape2 = "Another 'String'";
+var escape3 = "More \"complicated'";
+
+var templateString = `This is a template string done by ${person}. 
+Note that I use backticks \` instead of regular ticks/quotes!`;
+
+
+document.getElementById("container").innerHTML = concat + "<br> And escaping:<br> " 
++ escape1 + "<br>" + escape2 + "<br>" + escape3 + "<br>" + templateString;
+
+console.log("Types: " + "x is of type " + typeof x + "\n concat is " + typeof concat + "\n And templateString is " + typeof templateString);
+</script>
+
+</body>
+</html>

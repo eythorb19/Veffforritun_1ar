@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>JavaScript Examples</h1>
+
+<p id="header1">Variable scopes and hoisting.</p>
+
+<br>
+<p id="container"></p>
+
+<script>
+"use strict";
+
+x=1; //This is allowed, since x is defined further down (that is, it's hoisted to the top)
+
+y=2; //This will cause an exception, as y is not defined anywhere in this script
+
+var x;
+</script>
+
+</body>
+</html>

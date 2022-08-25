@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>JavaScript Examples</h1>
+
+<p id="header1">Variable scopes and hoisting.</p>
+
+<br>
+<p id="container"></p>
+
+<script>
+console.log("Before loop, i is " + i);
+
+for (var i = 0; i < 10; i++) {	
+    console.log("Within loop, i is " + i);
+}
+
+console.log("After loop, i is " + i);
+
+console.log("Variable x, before it has been defined: " + x);
+x = 5;
+console.log("Variable x, after it has been assigned 5 (but not defined): " + x);
+var x;
+x = 7;
+console.log("Variable x, after definition and assignment: " + x);
+
+</script>
+
+</body>
+</html>

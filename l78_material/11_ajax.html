@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>JavaScript Examples</h1>
+
+<p id="header1">AJAX.</p>
+
+<br>
+<p id="container"></p>
+
+<button type="button" onclick="loadDoc()">Load a resource</button>
+
+<script>
+function loadDoc() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+     document.getElementById("container").innerHTML = this.responseText;
+    } else {
+      console.log("State: " + this.readyState + ", status code: " + this.status);
+    }
+  };
+  xhttp.open("GET", "ajaxTest.txt", true); //This will work (if your Browser has CORS enabled)
+  //xhttp.open("GET", "www.google.com", true); //This will not work (since you request a resource from a different domain)
+  xhttp.send();
+}
+</script>
+
+</body>
+</html>

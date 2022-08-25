@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>JavaScript Examples</h1>
+
+<p id="header1">A Cat.</p>
+
+<img id="myPic" src="cat.jpg" alt="A cat." style="width:400px;">
+
+<br>
+
+<button type="button" onclick="change()">Try it</button>
+
+<script>
+function change () {
+    document.getElementById("myPic").src="dogHedge.jpg";
+    document.getElementById("myPic").alt="A dog and a hedgehog.";
+    document.getElementById("header1").innerHTML="A dog and a hedgehog.";
+    console.log("Changed the picture to dog and hedgehog.");
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>JavaScript Examples</h1>
+
+<p id="header1">Callback examples.</p>
+
+<script>
+  
+function first(){
+    console.log(1);
+}
+
+function second(){
+  // Simulate a code delay
+  setTimeout( function(){
+    console.log(2);
+  }, 500 );
+}
+
+function third(){
+    console.log(3);
+}
+
+first();
+second();
+third();
+
+function log(){
+	setTimeout(
+    function (){ 		console.log('4'); }
+  	,0);
+	console.log('5');
+}
+log();
+</script>
+
+</body>
+</html>

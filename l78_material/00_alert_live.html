@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>JS Basics</title>
+    </head>
+    <body>
+        <script> 
+            var course = {code:"VEFF-213", numberOfStudents:250};
+            console.log(course.code);
+            course.code="test";
+            console.log(course.code);
+
+            var jsonCourse = JSON.stringify(course);
+            console.log(jsonCourse);
+
+            function insertPara () {
+                var para = document.createElement("p");
+                var paraId = document.createAttribute("id");
+                paraId.value = "newPara";
+                para.setAttributeNode(paraId);
+                var paraText = document.createTextNode("Some new text");
+                para.appendChild(paraText);
+                document.getElementById("myDiv").appendChild(para);
+            }
+            function changePic () {
+                var username = getUsername();
+                if (username == "test") {
+                    var img = document.getElementById("myCat");
+                    img.src = "dogHedge.jpg";
+                }
+            }
+            function getUsername() {
+                var fieldIn = document.getElementById("username");
+                return fieldIn.value;
+            }
+        </script> 
+
+    <div id="myDiv">
+
+    </div>
+        <img src="cat.jpg" id="myCat">
+
+        <input type="text" id="username"><br>
+        <button type="button" onclick="insertPara()">Click</button>
+
+    </body>
+</html>

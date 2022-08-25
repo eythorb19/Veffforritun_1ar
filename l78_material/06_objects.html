@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>JavaScript Examples</h1>
+
+<p id="header1">Objects.</p>
+<br>
+<p id="container"></p>
+
+<script>
+var myObj = {first:"Grischa", 
+            last:"Liebel",
+            full: function() {
+                return this.first + " " + this.last;
+            }
+        };
+
+
+console.log(myObj.first);
+document.getElementById("container").innerHTML = "Full name: " + myObj.full();
+
+console.log("our object is of type " + typeof myObj);
+console.log("And a JSON representation of our object: " + JSON.stringify(myObj));
+</script>
+
+</body>
+</html>
