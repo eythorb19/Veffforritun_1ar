@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Basic JavaScript
+    </title>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <h1>Heading</h1>
+    <p>Paragraph</p>
+    <img src = "cat.jpg" id="imgContainer" alt = "It´s a cat.">
+    Name: <input type="text" id="nameIn" onchange ="printText()">
+    <button type = "button" onclick = "changePic()">Click</button>
+    <button type = "button" onclick="runAjax()">Do Ajax</button>
+
+    <script>
+        var x = 5;
+        var y = 5.5;
+        var z = "string";
+        var f;
+        var d = true;
+        var o = {"color": "green"};
+
+        console.log("Type of x is " + typeof(x));
+        console.log("Type of y is " + typeof(y));
+        console.log("Type of z is " + typeof(z));
+        console.log("Type of f is " + typeof(f));
+        console.log("Type of d is " + typeof(d));
+        console.log("Type of o is " + typeof(o));
+
+        console.log("Script is being 'loaded'.");
+
+        // Objects
+        var myobject = {y: 5, v: "something", test: true};
+
+        console.log(myobject.test);
+        console.log(typeof(myobject.test))
+        myobject.test = false; //change object
+        console.log(myobject.test);
+        myobject.test = "changed to string";
+        console.log(myobject.test)
+        console.log(typeof(myobject.test))
+
+        //JSON
+        console.log(myobject)
+        var jsonmyobject = JSON.stringify(myobject);
+        console.log(jsonmyobject);
+
+        //Arrays
+        var myArray = [2,"fylki",true];
+        console.log(myArray[0]+" "+myArray[1]);
+        console.log(typeof(myArray));
+        myArray.push("nyrstrengur")
+        console.log(myArray);
+        console.log(myArray.length);
+        var returnFal = myArray.pop()
+        console.log(returnFal)
+        console.log(myArray.length)
+
+        //Callback
+        setTimeout( function() {
+            console.log(1);
+        },500);
+        console.log(2);
+
+    function logString() {
+        console.log("Hello bitch");
+    }
+    logString();
+    
+    var x = logString;
+    x();
+
+    function printText() {
+        var nameIn = document.getElementById("nameIn");
+        console.log(nameIn.value);
+    }
+    function changePic() {
+        var name = getName();
+        if (name == "test" ) {
+            var img = document.getElementById("imgContainer");
+            img.src = "dogHedge.jpg"
+        } 
+    }
+    function getName() {
+        var nameIn = document.getElementById("nameIn");
+        // console.log("Text in the field: " + nameIn.value);
+        return nameIn.value;
+    }
+
+
+    //AJAX
+    function runAjax () {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status ==200) {
+                console.log(this.responseText);
+            }
+        }
+        xhttp.open("GET", "ajaxTest.txt", true);
+        xhttp.send();
+    }
+    </script>
+</body>
+
+<!-- Events -->
+    <!-- Event driven javascript -->
+    <!-- onload, onclick, onsubmit, onclick, oncontextmenu (right click protection) -->
+
+<!-- Types: can be checked using typeof(var) -->
+    <!-- primitive -->
+    <!-- number, string, boolean, undefined -->
+
+    <!-- complex -->
+    <!-- objects (arrays e.t.c), function -->
+
+
+<!-- JavaScript object -->
+
+    <!-- var obj = {name:"Eythor", age:25} -->
+
+    <!-- Access via obj.variable or obj["variable"] -->
+    <!-- console.log(obj.name) -->
+
+<!-- JSON -->
+    <!-- JavaSvript Object Notation = Common data exchange format
+    var obj = {name: "ey", age:21}
+    var json = '{"name":"ey","age":"21"}'; //JSON string -->
+
+    <!-- Conversion -->
+    <!-- var json = JSON.stringify(obj); //JSON, removes functions-->
+    <!-- var obj = JSON.parse(json); //Object -->
+
+    <!-- extra quotation marks -->
+
+<!-- JavaScript Arrays -->
+        <!-- var cars = ["Saab", "Volvo", "BMW"]; -->
+
+        <!-- Access by index only: cars[0] -->
+
+        <!-- Array in JSON: unquoted -->
+        <!-- var jsonObj = '{"name": "eythhor", "age": "25",
+                            "languages": ["icelandic", "danish", "english"]}'; -->
+
+        <!-- Objects in arrays:
+        var objArray = [{...},{...}]; -->
+
+    <!--  Javascript comparison: === compares both type and value
+    inequality operator: !==-->
+
+    <!-- Scope -->
+        <!-- Inside if statement -->
+            <!-- let og const - local -->
+            <!-- var - global -->
+
+
+    <!-- Hoisting takes declarations and moves them to the top -->
+
+    <!-- Strict Mode -->
+    <!-- "use strict"; //on top of your script/function -->
+    <!-- Forces a number of conventions -->
+        <!-- 
+        * Variables have to be declared (hoisting still works)
+        * deleting variables is not allowed
+        * Prevents the use of keywords as variable names
+    -->
+
+    <!-- Callbacks -->
+        <!-- 
+        You don´t call us, we call you!
+        A pattern/style to execute functionality after work is done -->
+
+        <!-- 
+            function doA(callback) {
+                //do something
+                callback();
+            });
+
+            doA(function() {console.log("done"); });
+
+            Callback function is called when doA() is finished
+            doA() "calls back"
+         -->
+
+
+<!-- JavaScript - Dynamic behaviour -->
+         <!-- Google uses ajax: asynchronous javascript and xml -->
+         <!-- Allows HTTP requests/responses after the page has been served/loaded -->
+         <!-- Use the standard XMLHttpRequest object to make requests -->
+
+
+</html>
