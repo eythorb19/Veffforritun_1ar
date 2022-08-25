@@ -1,0 +1,148 @@
+<!DOCTYPE html> <!-- HTML -->
+<html><!--HMTL tags. All but the doctype should be here-->
+    <head><!--Head. Meta information-->
+        <title>MyFirstWebsite</title>
+        <meta charset="UTF-8">
+        <meta name = "description" content= "An HTML example.">
+        <meta name = "keywords" content="Cats, Dogs"> <!--Character encoding-->
+        <meta name = "author" content="Eyþór Óli Borgþórsson">
+        <link rel="stylesheet" href="myStyle.css"> <!--Please link to the stylesheet file located in mystyle.css. Include documetns-->
+        <script src="script.js"></script>
+    </head>
+
+    <body> <!--Body. Actual content-->
+        <p id ="importantPara">Here is some important text</p>
+
+        <h1>This is my first website.</h1>
+        <p>Here you´ll have so much fun.</p>
+        <h2>I have a nice bed.</h2>
+        <h3>My girlfriend is beautiful.</h3>
+        <h4>Love island is a fun TV show.</h4>
+        <h5>I love travelling.</h5>
+        <img src="images/1qcg8t.jpg" alt = "1qcg8t.ehf." style="width:500px;height:600px;">
+
+
+        <!--Lists-->
+        <ul>
+            <li>One item</li>
+            <li>Another item
+                <ol>
+                    <li>A sub item</li>
+                </ol>
+            </li>
+            <li>A third item</li>
+        
+        <!--URLS and ref to websites-->
+        </ul>
+        <a href="https://www.facebook.com" target = "_blank"> here</a> <!--_Blank for a new website,_self in same window-->
+        <a href = "#importantPara">Get to the important paragraph"</a>
+
+
+        <!--Tables-->
+        <h1>Tables</h1>
+        <p>Tables contain tabular data. Bad style to use them for layouting.</p>
+        <table>
+            <caption>My table</caption>
+            <thead>
+                <tr>
+                    <th>First name</th>
+                    <th>Last name</th>
+                </tr>
+                <tbody>
+                    <tr>
+                        <td>Eyþór Óli</td>
+                        <td>Borgþórsson</td>
+                    </tr>
+                </tbody>
+            </thead>
+        </table>
+
+
+        <!--Divisions: Block elements vs. inline elements. -->
+        <p>Block elements start in a new line and take the entire width:</p>
+        <div>Web</div>
+        <div>Programming</div>
+
+        <p>Inline elements do not start a new line and take only as much space as needed.</p>
+        <span>Web</span>
+        <span>Programming</span>
+
+        <p>To visualize this further lets add color</p>
+        <div style = "background-color:coral">
+            <h1>My div</h1>
+            <p> Hey man - this is a division.</p> <!--Boxes adjust with windows. We can adjust styles with divs. This is used for layouting.-->
+        </div>
+
+        <div style="background-color: cyan;">A block element</div>
+        <div style="background-color: darkmagenta;">Another block element</div>
+        <br>
+        <span style="background-color: cyan;">An inline element</span> 
+        <span style="background-color: darkmagenta;">Another inline element</span>
+
+
+        <!--Forms - for example Login-->
+        <h1>Different kinds of forms</h1>
+        <form action="WhereToSendThis" method="get"> <!--Where to send this: Target url, method HTTP method-->
+            User:<input type="text" name="user"><br> <!--name: variable name in HTTP, for later use-->
+            <input type ="submit" onclick= "do()" value="Login"> <!--Submit button-->
+
+            <br>
+
+            Radio button: <input type = "radio" name="role" value="usr">User  <!--Role = usr-->
+            <br>
+            Checkbox: <input type = "checkbox" name ="check" value="check1">Item1
+            <br>
+            Dropdown menu: <select name="Candy">
+                                <option value="chocolate">Chockolate</option>
+                                <option value="liquorice">liquorice</option>
+            </select>
+            <br>
+            Disable elements(can´t be modified) <input type="text" disabled value="Default User">
+            <br>
+
+            <!--Form elements-->
+            <h3>Form elements</h3>
+            Text area (multi-line): <textarea name="message" rows="10" cols="10">Default</textarea>
+            <br>
+            Assign id to the element: <label for ="user">User:</label>
+            <br>
+            Add a label tag <input type="text" id="user">
+
+            <h2>Fieldsets: Used to group things together.</h2>
+            <fieldset>
+                <legend>User information</legend>
+            </fieldset>
+            <br>
+
+        </form>
+
+            <!--Form submission-->
+            <h3>Form submission</h3>
+            <h4>Only GET and POST as methods</h4>
+                <form action="08_simple_GET_form.thml" method="get">
+                    User name: <input type="text" name="username"><br>
+                    Password: <input type = "password" name="password">
+                    <input type = "submit" value="submit"></input>
+                </form>
+
+
+    </body>
+
+    </html>
+
+
+
+        <!--Special characters-->
+        <!--
+            <>: write &lt; &gt;
+            &: &amp;
+            Ö: &ouml;
+            á: &aacute;
+            þ: &thorn;
+            æ: &aelig;
+            ð: &eth;
+
+            Multiple spaces: &nbsp; (non breaking space)
+            Line breaks in HTML text are omitted: Use <br>
+            Don´t use spaces/line breaks for layouting. Uce CSS. HTML is for content, not layout.
+        -->
