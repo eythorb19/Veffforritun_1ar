@@ -1,0 +1,238 @@
+/* ----------------------------------------- */
+/* Settings and adjustments by screen sizes  */
+/* ----------------------------------------- */
+
+/* 0 < Screensize =< 650px */
+@media screen and (max-width: 650px) {
+    .portrait {
+        display:none;
+    }
+    .bluebox.header.norm {
+        display:none;
+    }
+    .person {
+        flex-basis: 350px;
+        margin: 15px;
+        justify-content: space-evenly;
+        height: 150px;
+        padding-bottom: 20px;}
+    .info {
+        text-align:center
+    }
+}
+/* 651px <= Screensize */
+@media screen and (min-width: 651px) {
+    .container.bluebox.header.shrinked {
+        display:none;
+    }
+    h2 {
+        display:none;
+    }
+    .info {
+        flex: 3;
+        text-align: left;
+        margin-left: 25px;
+    }
+    .employees {
+        justify-content: center;
+    }
+    .person {
+        flex-basis: 290px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        justify-content: space-between;
+        height: 150px;
+        padding-bottom: 50px;
+    }
+}
+/* 940px <= Screensize <= 1000px */
+@media screen and (min-width: 940px) and (max-width:1000px) {
+    .employees{
+        margin-right: 100px;
+        margin-left: 100px;
+    }
+}
+/* 1001px <= Screensize */
+@media screen and (min-width: 1001px) {
+    .person {
+        flex-basis: 220px;
+        padding-bottom: 20px;
+    }
+    .info {
+        margin-left: 0px;
+    }
+    .employees {
+        justify-content: space-evenly;
+    }
+    .portrait {
+        width: 65px;
+    }
+}
+/*Screen display*/
+@media screen {
+    h3 {
+        display:none;
+    }
+    .bluebox {
+        background-color: white;
+    }
+}
+
+/* ----------------------------------------- */
+/* Background styles and layouting           */
+/* ----------------------------------------- */
+body {
+    background-color: white;
+    font-family: 'Montserrat';
+    margin: 0px;
+}
+.container {
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.main {
+    background-color:white;
+}
+.bluebox {
+    border-radius: 0.4rem;
+    border:0.1rem  black solid;
+    background-color: #aad9e9;
+    align-content: center;
+}
+.header {
+    align-content: center;
+    text-align: center;
+    border:0.1rem black solid;
+    border-radius: 0.4rem;
+    height: auto;
+}
+    .norm {
+        flex: 100%;
+        height: 100px;
+    }
+    .shrinked {
+        flex: 100%;
+        height: 45px;
+        padding-bottom: 5px;
+    }
+.person {
+    order: 2;
+    align-items: flex-start;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+        .portrait {
+            flex: 1;
+            text-align: center;
+            padding-left: 5px;
+            margin-right: 6px;
+        }
+            img {
+                height: 70px;
+                margin-top: 10px;
+            }
+.footer {
+    flex: 100%;
+    order: 3;
+    align-content: center;
+    align-items: flex-start;
+    height: auto;
+    justify-content: space-between;
+    padding: 1.5rem;
+    margin-bottom: 4%;
+    margin-right: 10%;
+    margin-left: 10%;
+}
+    #about {
+        text-align: justify;
+        width: 45%;
+    }
+    #contact {
+        text-align: right;
+        width: 40%;
+        font-size: 1rem;
+    }
+/* ----------------------------------------- */
+/* Fonts, forms, links etc.                  */
+/* ----------------------------------------- */
+p {
+    font-size: 1rem;
+}
+h1 {
+    color:black;
+    font-size: 1rem;
+    }
+h2  {
+    color:black;
+    font-size: 1rem;
+    }
+.bold {
+    font-weight: bold;
+}
+input {
+    margin-top: 30px;
+}
+input[type=search] {
+    border: 2px solid lightgray;
+    color: darkgray;
+}
+input[type=submit] {
+    border: none;
+    background-color: #aad9e9;
+    color: black;
+}
+a:link {
+    color: black;
+    }
+    .hirefire {
+        text-decoration: underline;
+        padding: 2rem;
+        font-size: 1.5rem;
+        color: black;
+    }
+    .equiv {
+        font-size: 3.5rem;
+        color: black;
+        text-decoration: none;
+    }
+/* ----------------------------------------- */
+/* Print settings                            */
+/* ----------------------------------------- */
+@media print  {
+    h2 {
+        display: none;
+    }
+    body {
+        font-family: "Ibarra Real Nova";
+    }
+    .employees {
+        justify-content: center;
+    }
+    .person {
+        width: 300px;
+        height: 180px;
+        text-align: center;
+        margin-right: 2px;
+        margin-left: 2px;
+    }
+    .portrait {
+        display:none;
+    }
+    .container.bluebox.header.shrinked {
+        display:none;
+    }
+    .bluebox {
+        border-radius: 0.4rem;
+        border:0.1rem  black solid;
+        align-content: center;
+        background-color: white;
+    }
+    input[type=submit] {
+        border: none;
+        background-color: white;
+        color: black;
+    }
+    } 

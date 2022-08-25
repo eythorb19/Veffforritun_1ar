@@ -1,0 +1,90 @@
+BODY {
+    background: green;
+    font-family: Montserrat;
+    text-align: center;
+    align-content: center;
+}
+
+H1 {
+    font-size: 3rem;
+    color: yellow;
+    font-weight: bold;
+}
+
+button {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#msg {
+    margin: 10px;
+    color: blue; 
+}
+
+#rules {
+    color: yellow;
+}
+
+
+#mineInput {
+    margin-bottom: 1.5rem;
+}
+
+input {
+    margin: 0.3rem;
+}
+
+.tile {
+    align-items: center;
+    height: 1rem;
+    width: 1rem;  
+    background-color: gray;
+}
+.empty {
+    background-color: gray;
+}
+/* .mine {
+    background-color: blue;
+}  */
+
+#userInput {
+    margin-bottom: 1rem;
+}
+
+br {
+    margin-top: -1px;
+    margin-bottom: -1px;
+}
+.minepressed {
+    background-color: rgb(228, 65, 65);
+    background-image: url(bomb.png);
+    background-size: 0.8rem 0.8rem;
+}
+
+.zero {
+    border-color: darkslategray;
+
+}
+.one {
+    color: blue;
+}
+
+.two {
+    color: darkgreen;
+}
+
+.multiple {
+    color: red;
+}
+
+.marked {
+    background-image: url(flag.png);
+    background-size: 0.8rem 0.8rem;
+
+    /* background-repeat:no-repeat;  */
+}
+.win {
+    background-color: lightgreen;
+}
+
+

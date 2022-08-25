@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Minesweeper</title>
+    <meta charset="UTF-8">
+    <meta name = "description" content= "My Minesweeper game">
+    <meta name = "keywords" content="Assignment2, Web Design">
+    <meta name = "author" content="Eyþór Óli Borgþórsson">
+    <link rel="stylesheet" href="minesweeperStyle.css">
+    <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    
+    <!-- We need to import Axios in order to be able to use the axios object below -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script> 
+</head>
+
+<body>
+    <h1>My minesweeper</h1>
+    <div id ="author">
+            <p id = "signature">This game is brought to you by Eyþór Óli Borgþórsson, eythorb19@ru.is.</p>
+        </div>
+    
+    <p>Good luck my friend!</p>
+
+    <div id = "instructions">
+        <p id = "rules"> Min number of rows and columns is 1. <br>
+            Max number of rows and columns is 40. <br>
+            Min number of mines is 0. <br>
+            Max number of mines is rows x columns.
+        </p>
+    </div>
+
+    <br>
+
+    <!-- Form for AJAX request that generates a new minesweeper board-->
+    <div id = "userInput">
+        <form>
+            Number of rows: <input type="text" id="rowInput" ><br>
+            Number of columns: <input type="text" id="colInput" ><br>
+            Number of mines: <input type="text" id="mineInput" ><br>
+            <button type="button" onclick="newGame()">New game</button>
+        </form>
+    </div>
+
+    <div id = "myMessage">
+
+    </div>
+
+    <!-- Empty div assigned for new grid -->
+    <div id ="myGrid">
+
+    </div>
+
+    <script>
+        function newGame() {
+            //Start a new Minesweeper game with user defined values. If user input is incorrect use default values.
+
+            //Get user input from user form
+            var rowsInput = document.getElementById("rowInput").value;
+            var colsInput = document.getElementById("colInput").value;
+            var minesInput = document.getElementById("mineInput").value;
+
+            //Check if input is invalid
+            if (minesInput > rowsInput*colsInput || minesInput == 0 || rowsInput == 0 || rowsInput > 40 || colsInput == 0 || colsInput > 40) {
+                window.alert("Invalid input. Default 10x10 board with 10 mines will be generated.")
+                
+                //Overwrite user input 
+                document.getElementById("rowInput").value = 10;
+                document.getElementById("colInput").value = 10;
+                document.getElementById("mineInput").value = 10;
+
+                //Store new values
+                var rowsInput = document.getElementById("rowInput").value;
+                var colsInput = document.getElementById("colInput").value;
+                var minesInput = document.getElementById("mineInput").value;
+            }
+
+            //The URL to which we will send the request
+            var url = 'https://veff213-minesweeper.herokuapp.com/api/v1/minesweeper';
+
+            //Perform an AJAX POST request to the url, and set the parameters in the request body to myValues
+            axios.post(url, { rows: rowsInput, cols: colsInput, mines: minesInput })
+                .then(function (response) {
+                    //When successful, forward data to generate grid
+                    console.log("Success: ", response.data);
+                    var newGrid = response.data;
+                    generateGrid(newGrid);
+                })
+                .catch(function (error) {
+                    //When unsuccessful, generate default grid
+                    defaultGrid();
+                    console.log(error);
+
+                })
+                .then(function () {
+                    // This code is always executed, independent of whether the request succeeds or fails.
+                });
+        }
+
+        function defaultGrid() {
+            //Default Grid if post request fails
+
+            //Inform user with a pop-up
+            window.alert("Backend can not be reached. Default 10x10 board with 10 mines will be generated.")
+
+            //Create objects and arrays 
+            const defaultGrid = new Object();
+            const board = new Object();
+            const minePositions = new Array()
+
+            //Change user input to 10
+            document.getElementById("rowInput").value = 10;
+            document.getElementById("colInput").value = 10;
+            document.getElementById("mineInput").value = 10;
+
+            //Default mine positions
+            minePositions[0] = [1,3];
+            minePositions[1] = [3,0];
+            minePositions[2] = [4,2];
+            minePositions[3] = [4,5];
+            minePositions[4] = [4,7];
+            minePositions[5] = [6,9];
+            minePositions[6] = [7,7];
+            minePositions[7] = [8,9];
+            minePositions[8] = [9,3];
+            minePositions[9] = [9,9];
+
+            //Map object values
+            board['minePositions'] = minePositions;
+            board['rows'] = 10;
+            board['cols'] = 10;
+            board['mines'] = 10;
+            defaultGrid['board'] = board;
+
+            //Generate grid
+            generateGrid(defaultGrid)
+        }
+
+        function generateGrid(newGrid) {
+            //Generate Minesweeper grid
+
+            //Clear grid and message divs
+            document.getElementById("myGrid").innerHTML = ""
+            document.getElementById("myMessage").innerHTML = ""
+
+            //Define grid variables
+            var rows = newGrid.board.rows;
+            var cols = newGrid.board.cols;
+            var mines = newGrid.board.mines;
+            var minePositions = newGrid.board.minePositions;
+
+            // Create grid
+            for (var i = 0; i < rows; i++) {        //rows
+                for (var j = 0; j < cols; j++) {    //columns
+
+                    //Create button element and attributes
+                    var btn = document.createElement("button");        //Create a new button in grid
+                    var btnLocation = document.createAttribute("id");   //Create button id attribute
+                    var btnTileType = document.createAttribute("class"); //Create button class attribute
+                    var btnOnclick = document.createAttribute("onclick");   //Create onclick attribute
+                    var btnRightClick = document.createAttribute("oncontextmenu");  //create rightclick attribute
+
+                    //Define attribute values
+                    btnLocation.value = [i,j];     //location in grid
+                    btnTileType.value = "empty tile";   //Set class attribute 
+                    btnOnclick.value = "check_bombs(className," + [i,j]+ ")";   //Set onclick value
+                    btnRightClick.value = "flag(className," + [i,j]+ ")";
+
+                    //Set attributes to btn
+                    btn.setAttributeNode(btnLocation);     //Set button id as location in grid
+                    btn.setAttributeNode(btnTileType);      //Set button class as tiletype
+                    btn.setAttributeNode(btnOnclick);       //Set button onclick
+                    btn.setAttributeNode(btnRightClick);    
+
+                    myGrid.appendChild(btn);               //Add button to myGrid div
+                }
+
+                //Add break after each row
+                var newLine = document.createElement("br")
+                myGrid.appendChild(newLine); 
+            }
+
+            //Add class attribute to mines
+            for (var k = 0; k < mines; k++) {
+
+                //Map coordinates
+                mineRow = minePositions[k][0];  // x coordinate is mineRow
+                mineCol = minePositions[k][1];  // y coordinate is mineCol
+
+                //Change class attribute
+                btn = document.getElementById([mineRow,mineCol]);
+                btn.className = "mine tile"; // Define mines
+            }
+        }
+
+        function check_bombs(btnClass,x,y) {
+            //Check if user pressed empty tile or bomb
+
+            //Get element of pressed tile
+            btn = document.getElementById([x,y]);
+
+            //Make sure tile is not marked before taking action
+            if (!btn.classList.contains("marked")) {
+
+                //Bomb pressed
+                if (btnClass == "mine tile") {
+                    // console.log("bomb")
+                    explode();
+                }
+    
+                //Empty tile pressed
+                if (btnClass == "empty tile") {
+                    markempty(x,y);
+                }
+                checkIfWon(); //Check if game is won
+            }
+        }
+
+        function flag(btnClass,x,y) {
+            //Flag right clicked tile
+
+            window.event.returnValue = false    //Don´t show default context menu
+            var tile = document.getElementById([x,y]);  //Get tile
+
+            if ((!tile.classList.contains("emptypressed"))) {   //If tile has not been pressed before
+
+                //If tile is flagged remove flag
+                if ((tile.classList.contains("marked"))) {      
+                    tile.innerHTML = ""
+                    tile.classList.remove("marked");
+                }
+            
+                //If tile is not flagged add flag
+                else {
+                    tile.classList.add("marked");   //Add marked to classlist
+                }
+                }
+            
+            checkIfWon(); //Check if game is won
+
+            }
+
+        function explode() {
+            //Explosion if user presses mine
+            var mines = document.getElementById("mineInput").value; //Get all mines
+            var rows = document.getElementById("rowInput").value;
+            var cols = document.getElementById("colInput").value;
+            var size = rows*cols;
+
+            for (var k = 0; k < mines; k++) {
+                var bomb = document.getElementsByClassName("mine")[k];
+                bomb.classList.add("minepressed");  //Add minepressed to classlist
+            }
+
+            //Disable board
+            for (var i = 0; i< size; i++) {
+                    btn = document.getElementsByClassName("tile")[i]; 
+                    btn.disabled = true; 
+            }
+
+            //Generate message to inform user the game is over
+            var msg = document.createElement("p");
+            var msgId = document.createAttribute("id");
+            msgId.value = ("msg");
+            msg.setAttributeNode(msgId);
+            var msgText = document.createTextNode("Mine explosion. Game lost");
+            msg.appendChild(msgText);
+            document.getElementById("myMessage").appendChild(msg);
+        }
+
+        function markempty(x,y) {
+            //If empty tile is pressed mark empty tile with number of surrounding bombs. 
+            //If no bombs are near, reveal tile and check neighboors recursively.
+
+                btn = document.getElementById([x,y])
+                btn.classList.add("emptypressed");  //Add emptypressed to classlist
+    
+                //Set row indexes
+                var rows = document.getElementById("rowInput").value -1;
+                var cols = document.getElementById("colInput").value -1;
+                var countbombs = 0;
+                
+                //Check neighboor tiles
+                for (var m = -1; m <= 1; m++) {
+                    for (var n = -1; n <= 1; n++) {
+                        if (checkIfBomb(x+m, y+n) == true) {    //Check if there is a bomb at tile
+                            countbombs+=1;
+                        }
+                    }
+                }
+    
+                if (countbombs == 0) {  //If no bombs near, reveal neighboors recursively
+                    
+                    btn.classList.add("zero")   //Add zero to classList
+                    
+                    //Reveal neighboors recursively
+                    for (var m = -1; m <= 1; m++) {
+                        for (var n = -1; n <= 1; n++) {
+    
+                            neighboor = document.getElementById([x+m,y+n]);
+    
+                            if ((neighboor !== null) && (!neighboor.classList.contains("emptypressed") && (!neighboor.classList.contains("marked")))){   //Tile exists, is not flagged and has not been checked before. 
+                                // console.log(neighboor)
+                                // console.log("I´m not null, not marked and I´ve not been tested")
+                                markempty(x+m,y+n);
+                                }
+                            }
+                            
+                        }
+            }
+                //If bombs near, add number to tile and add to corresponding classlist
+                if (countbombs == 1) {  
+                    btn.classList.add("one")
+                    btn.innerHTML = countbombs;
+                    // console.log(btn)
+                }
+    
+                if (countbombs ==2) {
+                    btn.classList.add("two")
+                    btn.innerHTML = countbombs;
+                }
+    
+                if (countbombs >2) {
+                    btn.classList.add("multiple")
+                    btn.innerHTML = countbombs;
+                }  
+                }
+            
+        function checkIfBomb(m,n) {
+            //Returns true if there is a bomb at location m,n.
+
+            bomb = false;
+            if (document.getElementById([m,n]) !== null) {
+                
+                tileClass = document.getElementById([m,n]);     //Get element at defined location
+                if (tileClass.classList.contains("mine")) {     //Check if element is mine
+                    bomb = true;
+                }
+            }
+            return bomb;
+        }
+
+        function checkIfWon() {
+            //Check if all mines have been flagged and all empty tiles revealed
+
+            var rows = document.getElementById("rowInput").value;
+            var cols = document.getElementById("colInput").value;
+            var mines = document.getElementById("mineInput").value;
+            var size = rows*cols;
+            var revealed = document.getElementsByClassName("emptypressed").length;
+            var marked = document.getElementsByClassName("marked").length;
+
+            console.log(revealed)
+            console.log(marked)
+
+            if ((revealed == size-mines) && (marked == mines)) {    //If all empty tiles revealed and all mines are marked
+
+                //Inform user that they won the game
+                var msg = document.createElement("p");
+                var msgId = document.createAttribute("id");
+                msgId.value = ("msg");
+                msg.setAttributeNode(msgId);
+                var msgText = document.createTextNode("Congratulations, you won!");
+                msg.appendChild(msgText);
+                document.getElementById("myMessage").appendChild(msg);
+
+                //Add win to classlist of empty tiles
+                for (var k = 0; k < revealed; k++) {
+                    var tile = document.getElementsByClassName("emptypressed")[k];  
+                    tile.classList.add("win");  
+                }
+
+                //Disable board
+                for (var i = 0; i< size; i++) {
+                    btn = document.getElementsByClassName("tile")[i]; 
+                    btn.disabled = true;    
+                }
+            }                  
+            }
+
+    </script>
+</body>
+
+</html>
