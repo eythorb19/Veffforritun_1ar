@@ -1,13 +1,26 @@
-const mongoose = require('mongoose'),
-	Schema = mongoose.Schema;
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+var event = require('./event');
 
-const BookingSchema = new Schema({
-	firstName : { type: String, default: '' },
-	lastName  : { type: String, default: '' },
-	spots     : { type: Number, default: 0 },
-	email     : { type: String, default: '' },
-	tel       : { type: String, default: '' },
+var bookingSchema = new Schema({
+    firstName: { type: String, required: [true, "Bookings require a firstName!"] },
+    lastName: { type: String, required: [true, "Bookings require a lastName!"] },
+    tel: { type: String, default: '' },
+    email: { type: String, default: '' },
+    spots: { type: Number, min: 1.0, required: [true, "Bookings require a spots attribute!"] },
+    eventId: { type: Schema.Types.ObjectId, ref: 'events', required: [true, "Events require an eventId!"]}
 });
 
-module.exports = mongoose.model('Booking', BookingSchema);
+bookingSchema.methods.getPublic = function () {
+    var returnObject = {
+        firstName: this.firstName,
+        lastName: this.lastName,
+        tel: this.tel,
+        email: this.email,
+        spots: this.spots,
+        _id: this._id
+    };
+    return returnObject;
+};
 
+module.exports = mongoose.model('bookings', bookingSchema);
