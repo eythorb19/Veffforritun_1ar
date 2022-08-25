@@ -1,0 +1,139 @@
+%%% Template originaly created by Karol Kozioł (mail@karol-koziol.net) and modified for ShareLaTeX use
+% Edited by Joel Scheuner (scheuner@chalmers.se) from source: https://de.sharelatex.com/templates/other/assignment-(version-1)
+% Edited by Grischa Liebel (grischal@ru.is)
+\documentclass[a4paper,11pt,fleqn]{article}
+
+\usepackage{xcolor}
+\usepackage{comment}
+\excludecomment{showSolutions}
+%%% Toggle `showSolutions` here
+%\includecomment{showSolutions}
+
+\newcommand{\solutiontitle}[0]{\textcolor{red}{\textbf{Solution}}}
+\newcommand{\condsol}[1]{}
+\newcommand{\solution}[1]{}
+\begin{showSolutions}
+\renewcommand{\condsol}[1]{#1}
+\renewcommand{\solution}[1]{\par\solutiontitle\\{\color{black!60}#1}}
+\end{showSolutions}
+
+% NOTE: Compile this document with `xelatex`
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+
+\usepackage[final]{pdfpages}
+
+\usepackage{tgtermes} % replace standard font
+
+\usepackage[
+pdftitle={SC-T-213-VEFF - Web Programming I},
+pdfauthor={Reykjavík University},
+colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue,bookmarks=true,
+bookmarksopenlevel=2]{hyperref}
+\usepackage{amsmath,amssymb,amsthm,textcomp}
+\usepackage{enumerate}
+\usepackage{multicol}
+\usepackage{tikz}
+
+\usepackage{geometry}
+\geometry{total={210mm,297mm},
+    left=25mm,right=25mm,%
+    bindingoffset=0mm, top=20mm,bottom=20mm}
+\setlength{\mathindent}{0pt} % margin for math mode
+
+%%% Custom imports
+\usepackage{pdfpages} % for PDFs in appendix
+\usepackage{enumitem} % custom enumeration (e.g., A-Z)
+\usepackage{listings} % source code listings
+\lstset{columns=fullflexible}
+\usepackage{booktabs} % professional tables
+\usepackage{pdflscape} % single landscape pages
+
+\usepackage{todonotes}
+
+%%% Custom commands
+\newcommand{\code}[1]{\texttt{#1}}
+\linespread{1.2}
+\newcommand{\linia}{\rule{\linewidth}{0.5pt}}
+
+% my own titles
+\makeatletter
+\renewcommand{\maketitle}{
+    \begin{center}
+        \vspace{2ex}
+        {\huge \textsc{\@title}}
+        \vspace{1ex}
+        \\
+        \linia\\
+        \@author \hfill \@date
+        \vspace{4ex}
+    \end{center}
+}
+\makeatother
+%%%
+
+% custom footers and headers
+\usepackage{fancyhdr,lastpage}
+\pagestyle{fancy}
+\lhead{}
+\chead{}
+\rhead{}
+\lfoot{SC-T-213-VEFF - Web Programming I, Spring 19}
+\cfoot{}
+\rfoot{Page \thepage\ /\ \pageref*{LastPage}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+%
+%%%----------%%%----------%%%----------%%%----------%%%
+
+\begin{document}
+
+\title{SC-T-213-VEFF - Web Programming I\\
+    \vspace{5ex} Lab Assignment 5 -- Server-side JavaScript}
+\author{Reykjavík University}
+\date{Deadline: \textbf{11th March 2019, 23:59}}
+
+\maketitle
+
+\noindent The topic of this assignment is: \textbf{Writing server-side JavaScript using Node.js}.
+
+\section{Part 1: Node Module}
+\label{sec:module}
+Write two JavaScript files. The first one, \emph{math.js}, shall contain a Node.js module providing two functions. The first function, called \emph{doDivision(a,b)}, shall return the result of a divided by b. The second function, called \emph{stringifyDivision(a,b)}, shall return a string describing the divison in the format "\emph{a} divided by \emph{b} is \emph{result}". For example, stringifyDivision(4,2) shall return "4 divided by 2 is 2" (there is no need to anyhow round the result). stringifyDivision shall make use of doDivision.
+The second file, \emph{mathUser.js}, shall import the module and demonstrate its functionality by calling the two functions and printing their return values to the console. It is sufficient to call each function once (with arbitrary values).
+
+\section{Part 2: Basic HTTP Server}
+Write an HTTP server (in a file called \emph{httpServer.js}) using Node.js (and in-built modules) that listens to requests on IP 127.0.0.1, port 3000. It shall answer two kinds of requests:
+\begin{enumerate}
+\item If the URL is \url{http://127.0.0.1:3000/divide?a=[value]&b=[value]} and the HTTP method is GET, the server shall return the string that the function stringifyDivision in Section \ref{sec:module} would produce. For example, if you call \url{http://127.0.0.1:3000/divide?a=4&b=2}, the server shall return "4 divided by 2 is 2". The content type of the return value shall be text/plain, and the HTTP status code shall be 200.
+\item If any other URL is called, the server returns a text string saying "This operation is not supported." (with content-type text/plain and HTTP status code 405).
+\end{enumerate}
+The server shall never throw any exceptions/crash based on user requests. For example, if the user leaves out one of the parameters in \url{http://localhost:3000/divide}, the server shall fall back to the second case.
+
+\section{Requirements and Hints}
+For the overall assignment, the following requirements shall be fulfilled:
+\begin{enumerate}
+\item There are no restrictions on the JavaScript version.
+\item You are only allowed to use Node.js and its built-in modules. No external modules/libraries (such as Express) are allowed.
+\end{enumerate}
+
+We give the following hints:
+\begin{itemize}
+\item If you need any pointers on how to begin, start by going through the \emph{learnyounode} tutorials.
+\item For Part 2, look at the http and url modules of Node.js
+\item For the URL in Part 2, remember that the part after the question mark (\url{?a=[value]&b=[value]}) is called the \emph{query} part of a URL.
+\end{itemize}
+
+\section*{Submission}
+The lab is submitted via Canvas. The following deliverable needs to be included:
+
+\begin{enumerate}
+\item A single zip file containing the three JavaScript files \emph{math.js}, \emph{mathUser.js}, and \emph{httpServer.js}.
+\end{enumerate}
+\newpage
+
+\bibliographystyle{plain}
+%\bibliography{bibtex}
+
+\end{document}
